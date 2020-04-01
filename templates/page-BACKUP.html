@@ -1,0 +1,75 @@
+{$ (use ../codes/globs) $}
+{$ (use ../codes/templates) $}
+
+<!DOCTYPE html>
+<html>
+	{{ {:template (require "-head.html")} }}
+<body>
+	{{ {:template (require "-header.html")} }}
+	<div class="container">  
+    {{ {:template (require "-ads-horizontal.html")} }}
+    <div class="row">    
+      {{ {:template (require "-ads-vertical.html")} }}
+
+      <div class="col mt-1 ml-2 mr-2">
+			  {% (each ref (dyn :refs) %}
+			  <div class="row mt-1">
+			  	<div class="col col-sm-10 col-xl-11 border border-success border-top-0 border-left-0 border-right-0">			  		
+			  	</div>
+			  	<div class="col col-sm-2 col-xl-1 border border-success border-bottom-0 rounded-top bg-success text-light text-center">
+			  		خبر
+			  	</div>
+			  </div>
+
+			  <div class="row shadow">
+			  	<div class="col col-md-12 border border-success border-bottom-0 border-top-0 p-2">
+
+			  		<h4 class="text-right bg-light px-3 py-2 rounded">{{ (get-title-by-hash ref) }}</h4>
+			  		<div class="d-flex flex-row"> 
+	 						<p dir="rtl" class="text-justify">
+				  			{{ (gen-briefing ref) }} ...
+				  		</p>
+				  		<div class="ml-3">
+				  			<img class="rounded border-dark shadow"  width="250" src={{ (get-cover-by-hash ref) }}>
+				  		</div>
+			  		</div>
+			  		
+			  	</div>
+			  </div>
+
+			  <div class="row">
+			  	<div class="col col-sm-2 col-xl-1 border border-danger bg-light border-top-0 text-center rounded-bottom">
+			  		<a class="text-decoration-none" href={{ (get-page-by-hash (get ref :hash))}}>ادامه</a>
+			  	</div>
+			  	<div class="col col-sm-10 col-xl-11 border border-success border-bottom-0 border-left-0 border-right-0">			  		
+			  	</div>
+			  </div>			  
+				{% ) %}
+				
+				<div class="d-flex flex-row justify-content-center bd-highlight mt-3 mb-3">					
+					{% (when (nil? (dyn :older)) %}
+				  	<button class="p-2 m-1 btn btn-warning disabled">جدید تر</button>
+				  {% ) %}
+				  {% (when (not (nil? (dyn :older))) %}
+				  	<a class="p-2 m-1 btn btn-warning" href={{(dyn :older)}}>جدید تر</a>
+				  {% ) %}
+
+				  {% (when (nil? (dyn :newer)) %}				  	
+				  	<button class="p-2 m-1 btn btn-danger disabled">قدیمی تر</button>
+				  {% ) %}
+				  {% (when (not (nil? (dyn :newer))) %}				  	
+				  	<a class="p-2 m-1 btn btn-danger" href={{(dyn :newer)}}>قدیمی تر</a>
+				  {% ) %}			    
+		    </div>
+				
+			</div>
+    </div>
+
+  </div>
+
+	
+
+	{{ {:template (require "-footer.html")} }}
+</body>
+</html>
+
