@@ -10,7 +10,22 @@
 (defn- get-content-by-ref [ref]    
  (def path (H/get-draft-path (get (H/get-drafts-hash) (get ref :hash))))  
  (def dump (get (mrk/markup (slurp path)) :content))
- (get (find struct? dump) :content)) 
+ (def el 
+ 	 (find
+ 	 	(fn [el] 
+ 	 		(and 
+ 	 			(struct? el)
+ 	 			(not (nil? (get el :tag)))
+ 	 			(not (nil? (get el :content)))
+ 	 			(not (empty? (get el :content)))
+ 	 			(= "p" (get el :tag))))
+ 	  dump))
+
+ (when 
+ 	(nil? el) 
+ 	(error "SEPI: this markup file has no <p> tag in it!!!"))
+ 
+ (take 500 (get el :content)))
 
 (defn gen-briefing [ref]
 	(take briefing-length (string ;(get-content-by-ref ref))))
@@ -29,8 +44,6 @@
 	(if (nil? (get obj :title)) 
 		""
 		(get obj :title)))
-
-
 
 (defn get-cover-by-hash [ref]
 	(def path (H/get-draft-path (get (H/get-drafts-hash) (get ref :hash)))) 

@@ -11,14 +11,15 @@ default: reset
 build:
 	janet codes/main.janet -b
 
-rebuild:
-	janet codes/main.janet -r
-
-build-last:
-	janet codes/main.janet -l
-
 generate:
 	mdz build $(BUILD_DIR) .
+
+deploy:
+	rsync -azPv --del --exclude '.git' site/* ../gh-pages &&\
+	cd ../gh-pages &&\
+	git commit -a -m "site deployed automatically" &&\
+	git push &&\
+	cd ../master
 
 clean:
 	mdz clean $(BUILD_DIR) && mdz clean $(BUILD_DIR_DEV)
