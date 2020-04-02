@@ -18,21 +18,15 @@
       			<h3 class="">{{ (dyn :title) }}</h3>
       		</div>
       	</div>
-        <!--  -->
-        <div class="row border border-success border-bottom-0 border-top-0">
-          <div class="col">
-            {% (each tag (dyn :tags) %}
-            <a href="#" class="text-decoration-none badge bg-warning text-light">{{tag}}</a>
-            {% ) %}
-          </div>          
-        </div>
-        <!--  -->
+        <!--  -->        
         <div class="row border border-success border-bottom-0 border-top-0 py-2"> 
           <div class="col"> 
             <img class="img-fluid rounded shadow w-100 " src={{ (dyn :cover) }}>
           </div>
         </div>
       	<!--  -->
+    
+        <!--  -->
         <div class="row border border-success border-bottom-0 border-top-0 row-cols-1 bg-danger text-light py-2"> 
           <div class="col">
             <h6><small>نوشته شده توسط: {{ (dyn :author) }}</small></h6>
@@ -46,6 +40,11 @@
               منبع: <a class="text-decoration-none text-warning" href="{{ (dyn :source-url) }}">{{ (dyn :source) }}</a>
               </small>
             </h6>
+          </div>
+          <div class="col">
+            {% (each tag (dyn :tags) %}
+            <a href="#" class="text-decoration-none badge bg-warning text-black-50">{{tag}}</a>
+            {% ) %}
           </div>
         </div>
         <!--  -->
