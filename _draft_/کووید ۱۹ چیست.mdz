@@ -3,7 +3,7 @@
  :template "post.html"
  :kind "post"
  :date "2020-03-30"
- :tags ["آموزشی" "سلامت"]
+ :tags ["آموزشی" "سلامت" "ویروس" "کویید" "کرونا"]
  :source "WHO" 
  :source-url "https://www.who.int/health-topics/coronavirus#tab=tab_1"
  :cover "https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEyMzMzMX0"}
