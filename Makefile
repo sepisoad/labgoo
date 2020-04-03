@@ -17,6 +17,7 @@ generate:
 deploy:
 	rsync -azPv --del --exclude '.git' site/* ../gh-pages &&\
 	cd ../gh-pages &&\
+	git add . &&\
 	git commit -a -m "site deployed automatically" &&\
 	git push &&\
 	cd ../master
