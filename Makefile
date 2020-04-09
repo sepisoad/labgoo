@@ -14,6 +14,9 @@ build:
 generate:
 	mdz build $(BUILD_DIR) .
 
+bgs:
+	make build && make generate && make start
+
 deploy:
 	rsync -azPv --del --exclude '.git' site/* ../gh-pages &&\
 	cd ../gh-pages &&\
