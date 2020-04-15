@@ -1,7 +1,7 @@
 {:title "index"
  :template "page.html"
  :kind "page"
- :refs [{:hash -446372993 :id 5} {:hash 528485167 :id 4} {:hash 625161811 :id 3} {:hash 312152746 :id 2} {:hash -96545818 :id 1}]
+ :refs [{:hash -1040651409 :id 6} {:hash -446372993 :id 5} {:hash 528485167 :id 4} {:hash 625161811 :id 3} {:hash 312152746 :id 2}]
  :older nil
- :newer nil}
+ :newer "page-2.html"}
 ---
