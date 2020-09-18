@@ -45,7 +45,7 @@
 	(each h (keys posts) 
 		(when (nil? (get existing h))
 			(eprint (string "error: " (get (get posts h) :name) " is missing!"))
-			(quit)))
+			(quit -1)))
 	
 	(when (not (nil? new))
 		(merge-into posts new)		
