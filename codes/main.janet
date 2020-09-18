@@ -1,5 +1,5 @@
+(use ./globs)
 (import ./helpers :as H)
-(import ./globs :as G)
 
 (defn- switch-hash-id [posts]
 	(let [res @{}]
@@ -21,7 +21,7 @@
 		(error "drafts folder is empty")
 		(os/exit))
 
-	(parser/consume p (slurp (H/get-db-path G/posts-repo)))
+	(parser/consume p (slurp (H/get-db-path g-posts-repo)))
 	(var posts (parser/produce p))
 	(def new @{})
 	(def existing @{})	
@@ -49,14 +49,10 @@
 	
 	(when (not (nil? new))
 		(merge-into posts new)		
-		(spit (H/get-path G/posts-repo) (string/format "%j" posts)))
+		(spit (H/get-path g-posts-repo) (string/format "%j" posts)))
 
 	(H/update-posts-hash posts)
 	(H/update-posts-id (switch-hash-id posts))
-
-	# (pp G/posts-hash)
-	# (pp G/posts-id)
-	
 
 	(def id-post
 		(map
@@ -65,31 +61,31 @@
 	
 
 	(H/update-pages
-		(let [pids (partition G/news-per-page (reverse (sort (keys G/posts-id))))
+		(let [pids (partition g-news-per-page (reverse (sort (keys g-posts-id))))
 					pages (map (fn [num] @{:page (string/format "page-%d" num) :refs @[]}) (range 1 (+ (length pids) 1)))]						
 			(map 
 				(fn [page ids]
 					(array/push 
 						(get page :refs)
 						;(map 
-							(fn [id] {:id id :hash ((get G/posts-id id) :hash)})
+							(fn [id] {:id id :hash ((get g-posts-id id) :hash)})
 							ids)))
 				pages
 				pids)
 			pages))
 
-	(pp G/pages)
-	(put (get G/pages 0) :page "index") # a hack to use index as page-1
+	(pp g-pages)
+	(put (get g-pages 0) :page "index") # a hack to use index as page-1
 
-	(spit (H/get-db-path G/posts-repo) (string/format "%j" G/posts-hash))
+	(spit (H/get-db-path g-posts-repo) (string/format "%j" g-posts-hash))
 	
-	(for i 0 (length G/pages)	
+	(for i 0 (length g-pages)	
 		(H/gen-page 
-			(get (get G/pages i) :page)
-			(get (get G/pages i) :refs)
-			(H/get-path G/content-dir)
-			(get (get G/pages (- i 1)) :page)
-			(get (get G/pages (+ i 1)) :page)))
+			(get (get g-pages i) :page)
+			(get (get g-pages i) :refs)
+			(H/get-path g-content-dir)
+			(get (get g-pages (- i 1)) :page)
+			(get (get g-pages (+ i 1)) :page)))
 
 	(map
 		(fn [name] 

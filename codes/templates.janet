@@ -2,7 +2,6 @@
 (import mendoza/markup :as mrk)
 (import mendoza/template :as tmp)
 (import mendoza/render :as ren)
-(import ./globs :as G)
 (import ./helpers :as H)
 
 (def briefing-length 5000)

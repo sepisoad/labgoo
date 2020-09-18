@@ -1,7 +1,0 @@
-{:title "page-2"
- :template "page.html"
- :kind "page"
- :refs [{:hash 1440515237 :id 1}]
- :older "index.html"
- :newer nil}
----

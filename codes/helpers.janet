@@ -1,30 +1,30 @@
-(import ./globs :as G)
+(use ./globs)
 
 (defn get-path [name]
 	(string (os/cwd) "/" name))
 
 (defn get-draft-path [name]
-	(string (get-path G/draft-dir) name))
+	(string (get-path g-draft-dir) name))
 
 (defn get-db-path [name]
-	(string (get-draft-path (string G/db-dir name))))
+	(string (get-draft-path (string g-db-dir name))))
 
 (defn get-content-path [name]
-	(string (get-path G/content-dir) name))
+	(string (get-path g-content-dir) name))
 
 (defn update-pages [pages]
-	(merge-into G/pages pages ))
+	(merge-into g-pages pages ))
 
 (defn update-posts-hash [posts]
-	(merge-into G/posts-hash posts))
+	(merge-into g-posts-hash posts))
 
 (defn update-posts-id [posts]
-	(merge-into G/posts-id posts))
+	(merge-into g-posts-id posts))
 
 (defn get-drafts []
   (filter
-    (fn [dir] (= (get (os/stat (string (os/cwd) "/" G/draft-dir dir)) :mode) :file))
-    (os/dir (string (os/cwd) "/" G/draft-dir))))
+    (fn [dir] (= (get (os/stat (string (os/cwd) "/" g-draft-dir dir)) :mode) :file))
+    (os/dir (string (os/cwd) "/" g-draft-dir))))
     
 (defn get-drafts-hash []
   (let [result @{}]
