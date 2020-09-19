@@ -8,3 +8,4 @@
 (def g-site-dir "site/")
 (def g-db-dir "db/")
 (def g-posts-repo "posts.janet")
+(def g-tags-repo "tags.janet")

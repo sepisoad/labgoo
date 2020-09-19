@@ -59,6 +59,17 @@
 			(fn [h]  {(get (get posts h) :id) (get (get posts h) :name)})
 			(keys posts)))
 	
+	(def tags-repo @{})
+	(map 
+		(fn [post] 
+			(def page-tags (H/get-tags(post :name)))			
+			(def tags (get page-tags :tags))
+			(def page (get page-tags :page))			
+			(each tag tags
+				(when (nil? (get tags-repo tag))
+					(put tags-repo tag @[]))
+				(array/push (get tags-repo tag) page)))
+		(values posts))
 
 	(H/update-pages
 		(let [pids (partition g-news-per-page (reverse (sort (keys g-posts-id))))
@@ -73,8 +84,7 @@
 				pages
 				pids)
 			pages))
-
-	(pp g-pages)
+	
 	(put (get g-pages 0) :page "index") # a hack to use index as page-1
 
 	(spit (H/get-db-path g-posts-repo) (string/format "%j" g-posts-hash))
@@ -86,6 +96,9 @@
 			(H/get-path g-content-dir)
 			(get (get g-pages (- i 1)) :page)
 			(get (get g-pages (+ i 1)) :page)))
+
+	(each tag (keys tags-repo)
+		(H/gen-tag-pages tag (get tags-repo tag) g-content-dir))
 
 	(map
 		(fn [name] 
