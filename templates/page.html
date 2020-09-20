@@ -23,7 +23,11 @@
 
 			  <div class="row shadow">
 			  	<div class="col border border-success border-bottom-0 border-top-0 p-2">			  		
-			  		<h4 class="text-right bg-light px-3 py-2 rounded">{{ (get-title-by-hash ref) }}</h4>
+			  		<h4 class="text-right bg-light px-3 py-2 rounded">
+			  			<a href="{{ (get-page-by-hash (get ref :hash))}}" class="text-dark text-decoration-none">
+			  				{{ (get-title-by-hash ref) }}
+			  			</a>
+			  		</h4>
 			  		
 			  		<div class="row row-cols-1 row-cols-lg-2 align-items-start justify-content-center">
 			  			<div class="col order-lg-2">
