@@ -70,7 +70,7 @@
 	(file/close f))
 
 (defn gen-tag-pages [tag pages dest] 
-	(def f (file/open (string dest "/" tag ".mdz") :w))
+	(def f (file/open (string dest "/" "tag-" tag ".mdz") :w))
 	(when (nil? f)
 		(error (string/format "cannot open %s" dest)))
 
